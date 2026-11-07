@@ -15,14 +15,13 @@ Everything a couple would change lives in two files:
 | What | Where |
 | --- | --- |
 | Names, event dates, timings, descriptions, story chapters, closing message | `lib/wedding.ts` |
-| Venue name, address, Google Maps link (**currently placeholders**) | `lib/wedding.ts` → `venue` |
-| Countdown target (currently the start of the Baraat day, IST) | `lib/wedding.ts` → `countdownTarget` |
+| Venue name, address, Google Maps link | `lib/wedding.ts` → `venue` |
+| Event start times (`start`, 24-hour IST) | `lib/wedding.ts` → `events` |
+| Countdown target (follows the Baraat start time automatically) | `lib/wedding.ts` → `countdownTarget` |
 | Hero, story, venue and gallery photos | `lib/assets.ts` + files in `assets/images/` |
 | Social / WhatsApp preview image | `app/opengraph-image.jpg` and `app/twitter-image.jpg` (1200×630) |
 
-**Swapping photos:** overwrite a file in `assets/images/` with the same name, or add a new file and change its import in `lib/assets.ts`. Width, height and blur placeholders are picked up automatically. Use `focus` (CSS `object-position`) to keep faces in frame. In the gallery, portrait photos take two grid rows and landscape photos one.
-
-The current photos are royalty-free placeholders from [Unsplash](https://unsplash.com/license).
+**Swapping photos:** overwrite a file in `assets/images/` with the same name, or add a new file and change its import in `lib/assets.ts`. Width, height and blur placeholders are picked up automatically. Use `focus` (CSS `object-position`) to keep faces in frame. In the gallery, portrait photos are tall tiles and landscape photos span two columns; eight portraits fill the desktop grid exactly.
 
 ## RSVP → WhatsApp
 
@@ -35,7 +34,8 @@ Add `?to=` to the link you send each family, e.g. `https://your-site.com/?to=Sha
 ## Extras
 
 - **Envelope intro**: a wax-sealed envelope opens and the curtains part on first visit (once per browser session). Press Enter or tap to open.
-- **Background music**: put an mp3 in `public/` and set `music.src` in `lib/wedding.ts` (e.g. `"/music.mp3"`). It starts when the envelope is opened and a floating button pauses it.
+- **Background music**: `public/music/humsafar-yaman.mp3` is an original instrumental composed for this site (Raag Yaman, with santoor, bansuri, tanpura and tabla), so it has no copyright issues. It starts when the envelope is opened, and a floating button pauses it. To use another song, put its mp3 in `public/music/` and change `music.src` in `lib/wedding.ts`. Only use songs you have the rights to.
+- **Navbar** is static: it sits over the hero and scrolls away with the page.
 - **Share**: "Share Invitation" opens the phone's share sheet (or WhatsApp on desktop).
 - **Mobile RSVP bar**: a floating "Will you join us?" bar on phones.
 - **Add to Calendar** on every event card, plus "Save the Date" (Google Calendar / .ics) in the navbar.

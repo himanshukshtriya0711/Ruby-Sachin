@@ -31,7 +31,7 @@
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 76px;
+  scroll-padding-top: 12px;
   -webkit-text-size-adjust: 100%;
 }
 

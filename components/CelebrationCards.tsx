@@ -1,7 +1,7 @@
 import { CalendarDays, CalendarPlus, Clock } from "lucide-react";
 import { googleCalendarUrl } from "@/lib/calendar";
 import type { ReactNode } from "react";
-import { events, formatShort, type WeddingEventId } from "@/lib/wedding";
+import { events, formatShort, formatTime, type WeddingEventId } from "@/lib/wedding";
 import { cn } from "@/lib/utils";
 import { Curtain } from "./decor/Ornaments";
 import { FloralCluster } from "./decor/FloralCluster";
@@ -82,9 +82,9 @@ export function CelebrationCards() {
                     <time dateTime={e.date}>{formatShort(e.date)}</time>
                   </p>
                   <p className="mt-3 max-w-[17rem] text-[1.02rem] leading-snug text-ink-soft">{e.description}</p>
-                  <p className="mt-4 flex items-center gap-1.5 font-sans text-[0.7rem] tracking-[0.16em] text-plum-soft uppercase">
-                    <Clock className="size-3.5" strokeWidth={1.8} />
-                    {e.time}
+                  <p className="mt-4 flex items-center gap-1.5 font-sans text-[0.8rem] font-bold tracking-[0.16em] text-plum-soft uppercase">
+                    <Clock className="size-4" strokeWidth={1.8} />
+                    <time dateTime={`${e.date}T${e.start}+05:30`}>{formatTime(e.start)}</time>
                   </p>
                   <a
                     href={googleCalendarUrl(e)}

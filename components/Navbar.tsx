@@ -22,16 +22,8 @@ function Monogram({ className }: { className?: string }) {
 }
 
 export function Navbar() {
-  const [scrolled, setScrolled] = useState(false);
   const [active, setActive] = useState<string>("home");
   const [open, setOpen] = useState(false);
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
 
   useEffect(() => {
     const sections = navLinks
@@ -56,11 +48,12 @@ export function Navbar() {
   }, [open]);
 
   return (
+    // Static header: sits at the top of the page over the hero and scrolls away with it.
     <header
       className={cn(
-        "fixed inset-x-0 top-0 z-50 transition-[background-color,box-shadow,backdrop-filter] duration-500",
-        scrolled || open
-          ? "bg-white/75 shadow-[0_8px_30px_-18px_rgb(75_23_101/0.35)] backdrop-blur-xl"
+        "absolute inset-x-0 top-0 z-50 transition-[background-color,backdrop-filter] duration-500",
+        open
+          ? "bg-white/80 backdrop-blur-xl"
           : "bg-gradient-to-b from-white/70 to-white/0 max-lg:bg-white/55 max-lg:backdrop-blur-md",
       )}
     >

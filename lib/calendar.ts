@@ -1,11 +1,13 @@
-import { couple, events, venue, type WeddingEvent } from "./wedding";
+import { calendarDurationHours, couple, events, venue, type WeddingEvent } from "./wedding";
 
 const compact = (iso: string) => iso.replaceAll("-", "");
 
-function nextDay(iso: string) {
-  const [y, m, d] = iso.split("-").map(Number);
-  const dt = new Date(Date.UTC(y, m - 1, d + 1));
-  return dt.toISOString().slice(0, 10);
+/** Event start/end as UTC "YYYYMMDDTHHMMSSZ" (event times are IST, UTC+5:30). */
+function utcRange(e: WeddingEvent) {
+  const start = new Date(`${e.date}T${e.start}:00+05:30`);
+  const end = new Date(start.getTime() + calendarDurationHours * 3_600_000);
+  const fmt = (d: Date) => d.toISOString().replace(/[-:]/g, "").replace(/\.\d{3}/, "");
+  return { start: fmt(start), end: fmt(end) };
 }
 
 const names = `${couple.bride} & ${couple.groom}`;
@@ -15,7 +17,8 @@ export function googleCalendarUrl(event: WeddingEvent) {
   const params = new URLSearchParams({
     action: "TEMPLATE",
     text: `${event.title} · ${names}`,
-    dates: `${compact(event.date)}/${compact(nextDay(event.date))}`,
+    dates: `${utcRange(event).start}/${utcRange(event).end}`,
+    ctz: "Asia/Kolkata",
     details: `${event.description}\n\nWe can't wait to celebrate with you. — ${names}`,
     location,
   });
@@ -39,8 +42,8 @@ export function buildIcs() {
       "BEGIN:VEVENT",
       `UID:${e.id}-${compact(e.date)}@ruby-sachin-wedding`,
       `DTSTAMP:${stamp}`,
-      `DTSTART;VALUE=DATE:${compact(e.date)}`,
-      `DTEND;VALUE=DATE:${compact(nextDay(e.date))}`,
+      `DTSTART:${utcRange(e).start}`,
+      `DTEND:${utcRange(e).end}`,
       `SUMMARY:${escapeIcs(`${e.title} · ${names}`)}`,
       `DESCRIPTION:${escapeIcs(e.description)}`,
       `LOCATION:${escapeIcs(location)}`,

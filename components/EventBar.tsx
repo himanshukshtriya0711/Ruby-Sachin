@@ -1,4 +1,4 @@
-import { events, formatLong, type WeddingEventId } from "@/lib/wedding";
+import { events, formatLong, formatTime, type WeddingEventId } from "@/lib/wedding";
 import { DiyaIcon, HorseIcon, RingsIcon } from "./decor/Icons";
 import { Stagger, StaggerItem } from "./ui/Reveal";
 
@@ -35,7 +35,10 @@ export function EventBar() {
                 </span>
                 <span className="text-left">
                   <span className="block text-[1.3rem] leading-tight font-bold text-plum">{e.title}</span>
-                  <span className="block text-[1.05rem] text-ink">{formatLong(e.date)}</span>
+                  <span className="block text-[1.05rem] text-ink">
+                    {formatLong(e.date)}
+                    <span className="text-plum-soft"> · {formatTime(e.start)}</span>
+                  </span>
                 </span>
               </a>
             </StaggerItem>

@@ -15,7 +15,7 @@ export function MusicToggle() {
     const start = () => {
       const el = audio.current;
       if (!el) return;
-      el.volume = 0.45;
+      el.volume = 0.6;
       el.play().then(() => setPlaying(true)).catch(() => setPlaying(false));
     };
     window.addEventListener(OPENED_EVENT, start);
@@ -36,7 +36,7 @@ export function MusicToggle() {
 
   return (
     <>
-      <audio ref={audio} src={music.src} loop preload="none" />
+      <audio ref={audio} src={music.src} loop preload="auto" />
       <button
         type="button"
         onClick={toggle}

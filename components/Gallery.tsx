@@ -49,7 +49,7 @@ export function Gallery({ photos = galleryPhotos }: { photos?: Photo[] }) {
           <LotusDivider className="mt-4 w-52" />
         </Reveal>
 
-        {/* Portrait photos span two rows, landscape one; dense flow fills any gaps. */}
+        {/* Portrait photos are tall tiles (2 rows); landscape photos are wide (2 cols × 2 rows). */}
         <ul className="mt-12 grid grid-flow-dense auto-rows-[150px] grid-cols-2 gap-3 min-[420px]:auto-rows-[180px] sm:auto-rows-[220px] sm:gap-5 lg:auto-rows-[200px] lg:grid-cols-4 lg:gap-6">
           {photos.map((p, i) => (
             <Reveal
@@ -57,7 +57,7 @@ export function Gallery({ photos = galleryPhotos }: { photos?: Photo[] }) {
               key={i}
               delay={(i % 4) * 0.08}
               amount={0.15}
-              className={p.src.height > p.src.width ? "row-span-2" : ""}
+              className={p.src.height > p.src.width ? "row-span-2" : "col-span-2 row-span-2"}
             >
               <button
                 type="button"

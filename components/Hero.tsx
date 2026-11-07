@@ -29,7 +29,7 @@ export function Hero() {
         {/* couple photograph */}
         <div data-speed="0.16" className="absolute top-14 right-0 h-[60svh] w-full sm:h-[66svh] lg:top-0 lg:right-[4%] lg:h-full lg:w-[55%]">
           <div className="hero-photo h-full w-full">
-            <div className="relative h-full w-full [mask-image:linear-gradient(to_bottom,#000_58%,transparent_98%)] lg:[mask-image:linear-gradient(to_right,transparent_0%,#000_26%,#000_86%,transparent_100%)]">
+            <div className="relative h-full w-full [mask-image:linear-gradient(to_bottom,#000_58%,transparent_98%)] lg:[mask-image:linear-gradient(to_right,transparent_0%,#000_16%,#000_88%,transparent_100%)]">
               <div className="relative h-full w-full lg:[mask-image:linear-gradient(to_bottom,#000_72%,transparent_100%)]">
                 <Image
                   src={hero.src}

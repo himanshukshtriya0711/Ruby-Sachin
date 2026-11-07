@@ -10,10 +10,13 @@ export type WeddingEvent = {
   title: string;
   /** ISO date (YYYY-MM-DD) in India Standard Time. */
   date: string;
-  /** Shown on the event cards. Replace with real timings once confirmed. */
-  time: string;
+  /** Start time, 24-hour "HH:MM" in IST. Shown as e.g. "12:00 PM" and used for calendar invites. */
+  start: string;
   description: string;
 };
+
+/** How long calendar invites block out for each event (no end times were given). */
+export const calendarDurationHours = 3;
 
 export const couple = {
   bride: "Ruby",
@@ -26,27 +29,35 @@ export const events: WeddingEvent[] = [
     id: "lagan",
     title: "Lagan & Sagai",
     date: "2026-12-07",
-    time: "Timings to be announced",
+    start: "12:00", // 12 PM, afternoon
     description: "Rings, blessings and the first promise as two families become one.",
   },
   {
     id: "baraat",
     title: "Baraat",
     date: "2026-12-11",
-    time: "Timings to be announced",
+    start: "20:00", // 8 PM, night
     description: "Music, dhol and dancing as the groom arrives to wed his bride.",
   },
   {
     id: "vidaai",
     title: "Vidaai",
     date: "2026-12-12",
-    time: "Timings to be announced",
+    start: "10:00", // 10 AM, morning
     description: "A tender farewell, wrapped in blessings, as a new journey begins.",
   },
 ];
 
-/** The countdown targets the start of the Baraat day (IST). */
-export const countdownTarget = "2026-12-11T00:00:00+05:30";
+/** "20:00" → "8:00 PM" */
+export function formatTime(hhmm: string) {
+  const [h, m] = hhmm.split(":").map(Number);
+  const h12 = h % 12 === 0 ? 12 : h % 12;
+  return `${h12}:${String(m).padStart(2, "0")} ${h < 12 ? "AM" : "PM"}`;
+}
+
+/** The countdown runs to the start of the Baraat (IST). */
+const baraat = events.find((e) => e.id === "baraat")!;
+export const countdownTarget = `${baraat.date}T${baraat.start}:00+05:30`;
 
 /**
  * Venue — PLACEHOLDER. Replace every field with the real details.
@@ -88,7 +99,12 @@ export const whatsappNumber = "919536734736";
  * and set `src: "/music.mp3"`. It starts when the guest opens the invitation
  * and can be paused from the floating button. Leave empty to hide the player.
  */
-export const music = { src: "" as string, title: "Wedding music" };
+export const music = {
+  // Original instrumental composed for this site (Raag Yaman: santoor, bansuri, tanpura, tabla).
+  // To use a different song, put its mp3 in /public/music and change this path.
+  src: "/music/humsafar-yaman.mp3" as string,
+  title: "background music",
+};
 
 /** Our Story — placeholder copy, written to be replaced. */
 export const story = {

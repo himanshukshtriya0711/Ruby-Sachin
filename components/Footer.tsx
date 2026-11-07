@@ -65,7 +65,7 @@ export function Footer() {
         </a>
 
         <p className="mt-8 font-sans text-[0.7rem] tracking-wide text-ink-soft/80">
-          Made with love for {couple.bride} &amp; {couple.groom} · Placeholder photographs courtesy of Unsplash
+          Made with love for {couple.bride} &amp; {couple.groom}
         </p>
       </Reveal>
     </footer>
